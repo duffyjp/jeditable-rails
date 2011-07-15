@@ -22,7 +22,7 @@ module JeditableHelper
   #   The URL to submit the form to.  Defaults to <tt>url_for(object)</tt>.
   def editable_field(object, property, options={})
     name = "#{object.class.to_s.underscore}[#{property}]"
-    value = object.send property
+    value = options.delete(:value) || object.send(property)
     update_url = options.delete(:update_url) || url_for(object)
     args = {:method => 'PUT', :name => name}.merge(options)
     %{
